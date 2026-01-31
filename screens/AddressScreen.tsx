@@ -272,8 +272,9 @@ const AddressScreen: React.FC<AddressScreenProps> = ({
       {!showForm && isCheckout && addresses.length > 0 && (
         <View style={styles.footer}>
           <TouchableOpacity
-            style={styles.proceedButton}
+            style={[styles.proceedButton, !selectedAddress && styles.disabledButton]}
             onPress={handleProceed}
+            disabled={!selectedAddress}
           >
             <Text style={styles.proceedButtonText}>Proceed to Payment</Text>
           </TouchableOpacity>
@@ -472,6 +473,9 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
     fontWeight: '600',
+  },
+  disabledButton: {
+    backgroundColor: '#9CA3AF',
   },
 });
 

@@ -96,7 +96,7 @@ const organicProducts: Product[] = [
     category: 'Healthy Snacks',
     weight: '200g',
     price: 150,
-    image: 'Amla Candy Sweet.jpg',
+    image: 'Amla Candy Sweet.png',
     inStock: true,
   },
   {
@@ -123,7 +123,7 @@ const organicProducts: Product[] = [
     category: 'Natural Skincare',
     weight: '100g',
     price: 95,
-    image: 'Aloevera Bar (by Hyper Nature).jpg',
+    image: 'Aloevera Bar (by Hyper Nature).png',
     inStock: true,
   },
   {
@@ -205,7 +205,7 @@ const organicProducts: Product[] = [
     weight: '100g',
     price: 145,
     image: 'Bridal Beauty Bar.jpg',
-    inStock: false,
+    inStock: true,
   },
 ];
 
@@ -476,19 +476,20 @@ const styles = StyleSheet.create({
   productCard: {
     flex: 1,
     backgroundColor: 'white',
-    borderRadius: 16,
-    margin: 6,
+    borderRadius: 12,
+    margin: 8,
     overflow: 'hidden',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 5,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.08,
+    shadowRadius: 4,
+    elevation: 2,
   },
   productImage: {
     width: '100%',
-    height: 140,
+    height: 70,
     backgroundColor: '#E5E7EB',
+    resizeMode: 'contain',
   },
   productInfo: {
     padding: 16,
@@ -516,7 +517,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   productPrice: {
-    fontSize: 18,
+    fontSize: 9,
     fontWeight: 'bold',
     color: '#059669',
   },

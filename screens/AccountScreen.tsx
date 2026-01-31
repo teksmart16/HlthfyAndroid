@@ -5,10 +5,10 @@ import { UserProfile } from "../types";
 interface AccountScreenProps {
   userProfile: UserProfile;
   onLogout: () => void;
-  onManageAddresses: () => void;
+  onEditProfile: () => void;
 }
 
-const AccountScreen: React.FC<AccountScreenProps> = ({ userProfile, onLogout, onManageAddresses }) => {
+const AccountScreen: React.FC<AccountScreenProps> = ({ userProfile, onLogout, onEditProfile }) => {
   const handleLogout = () => {
     Alert.alert("Logout", "Are you sure?", [
       { text: "Cancel", style: "cancel" },
@@ -32,25 +32,21 @@ const AccountScreen: React.FC<AccountScreenProps> = ({ userProfile, onLogout, on
       </View>
 
       <View style={styles.menuContainer}>
-        <TouchableOpacity style={styles.menuItem}>
-          <Text style={styles.menuTitle}>Edit Profile</Text>
-        </TouchableOpacity>
-        
-        <TouchableOpacity style={styles.menuItem} onPress={onManageAddresses}>
-          <Text style={styles.menuTitle}>Manage Addresses</Text>
+        <TouchableOpacity style={styles.menuItem} onPress={onEditProfile}>
+          <Text style={styles.menuTitle}>✏️ Edit Profile & Addresses</Text>
         </TouchableOpacity>
         
         <TouchableOpacity style={styles.menuItem}>
-          <Text style={styles.menuTitle}>Order History</Text>
+          <Text style={styles.menuTitle}>📋 Order History</Text>
         </TouchableOpacity>
         
         <TouchableOpacity style={styles.menuItem}>
-          <Text style={styles.menuTitle}>Help & Support</Text>
+          <Text style={styles.menuTitle}>❓ Help & Support</Text>
         </TouchableOpacity>
       </View>
 
       <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
-        <Text style={styles.logoutButtonText}> Logout</Text>
+        <Text style={styles.logoutButtonText}>🚪 Logout</Text>
       </TouchableOpacity>
     </ScrollView>
   );

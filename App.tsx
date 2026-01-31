@@ -11,6 +11,8 @@ import CartScreen from "./screens/CartScreen";
 import AccountScreen from "./screens/AccountScreen";
 import AuthScreen from "./screens/AuthScreen";
 import AddressScreen from "./screens/AddressScreen";
+import PaymentScreen from "./screens/PaymentScreen";
+import EditProfileScreen from "./screens/EditProfileScreen";
 
 // Import types
 import { CartItem, Product, UserProfile, Address } from "./types";
@@ -22,7 +24,7 @@ export default function App() {
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [cart, setCart] = useState<CartItem[]>([]);
   const [loading, setLoading] = useState(true);
-  const [currentScreen, setCurrentScreen] = useState<'main' | 'address' | 'manageAddresses'>('main');
+  const [currentScreen, setCurrentScreen] = useState<'main' | 'address' | 'payment' | 'manageAddresses' | 'editProfile'>('main');
   const [selectedAddress, setSelectedAddress] = useState<Address | null>(null);
 
   // Load stored data on app start
@@ -85,6 +87,10 @@ export default function App() {
     ]);
   };
 
+  const handleProfileUpdate = (updatedProfile: UserProfile) => {
+    setUserProfile(updatedProfile);
+  };
+
   const handleAddToCart = async (product: Product) => {
     const existingItemIndex = cart.findIndex(item => item.id === product.id);
     
@@ -128,33 +134,24 @@ export default function App() {
 
   const handleAddressSelected = (address: Address) => {
     setSelectedAddress(address);
-    // Show checkout confirmation with address
+    // Navigate to payment screen
+    setCurrentScreen('payment');
+  };
+
+  const handlePaymentSuccess = async () => {
+    // Clear cart and return to main screen
+    setCart([]);
+    setCurrentScreen('main');
+    await AsyncStorage.removeItem('cart');
+    
     Alert.alert(
-      "Confirm Order",
-      `Deliver to: ${address.name}\n${address.addressLine1}, ${address.city}\nPhone: ${address.phone}\n\nTotal: ₹${calculateTotalPrice()}\n\nProceed with order?`,
+      "Order Placed Successfully!",
+      `Thank you for your order!\n\nYour order will be delivered to:\n${selectedAddress?.name}\n${selectedAddress?.addressLine1}, ${selectedAddress?.city}\n\nExpected Delivery: Within 1-Hour`,
       [
         {
-          text: "Cancel",
-          style: "cancel",
-          onPress: () => setCurrentScreen('main')
-        },
-        {
-          text: "Place Order",
+          text: "OK",
           onPress: () => {
-            Alert.alert(
-              "Order Placed!",
-              `Your order has been placed successfully!\n\nDelivery Address:\n${address.name}\n${address.addressLine1}, ${address.city}\n\nThank you for shopping with Hlthfy!`,
-              [
-                {
-                  text: "OK",
-                  onPress: () => {
-                    setCart([]);
-                    setCurrentScreen('main');
-                    AsyncStorage.removeItem('cart');
-                  }
-                }
-              ]
-            );
+            setSelectedAddress(null);
           }
         }
       ]
@@ -195,12 +192,40 @@ export default function App() {
     );
   }
 
+  if (currentScreen === 'payment' && selectedAddress) {
+    return (
+      <>
+        <PaymentScreen
+          cart={cart}
+          address={selectedAddress}
+          totalPrice={calculateTotalPrice()}
+          onPaymentSuccess={handlePaymentSuccess}
+          onGoBack={() => setCurrentScreen('address')}
+        />
+        <StatusBar style="auto" />
+      </>
+    );
+  }
+
   if (currentScreen === 'manageAddresses') {
     return (
       <>
         <AddressScreen
           onGoBack={() => setCurrentScreen('main')}
           isCheckout={false}
+        />
+        <StatusBar style="auto" />
+      </>
+    );
+  }
+
+  if (currentScreen === 'editProfile' && userProfile) {
+    return (
+      <>
+        <EditProfileScreen
+          userProfile={userProfile}
+          onGoBack={() => setCurrentScreen('main')}
+          onProfileUpdate={handleProfileUpdate}
         />
         <StatusBar style="auto" />
       </>
@@ -265,7 +290,7 @@ export default function App() {
               <AccountScreen
                 userProfile={userProfile}
                 onLogout={handleLogout}
-                onManageAddresses={() => setCurrentScreen('manageAddresses')}
+                onEditProfile={() => setCurrentScreen('editProfile')}
               />
             )
           )}

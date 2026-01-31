@@ -44,6 +44,26 @@ export interface Order {
   orderStatus: 'placed' | 'confirmed' | 'shipped' | 'delivered' | 'cancelled';
   orderDate: Date;
   estimatedDelivery: Date;
+  deliveryId?: string; // Chot delivery ID
+  trackingUrl?: string; // Chot tracking URL
+}
+
+export interface DeliveryInfo {
+  deliveryId: string;
+  partnerId: string;
+  partnerName: string;
+  partnerPhone: string;
+  partnerRating: number;
+  vehicleType: string;
+  status: 'assigned' | 'pending' | 'picked_up' | 'in_transit' | 'delivered' | 'failed';
+  pickupTime?: string;
+  deliveryTime?: string;
+  trackingUrl: string;
+  currentLocation?: {
+    lat: number;
+    lng: number;
+  };
+  estimatedArrival?: number; // in minutes
 }
 
 export interface FormData {
@@ -51,4 +71,10 @@ export interface FormData {
   password: string;
   name: string;
   email: string;
+  pin?: string;
+  addressLine1?: string;
+  addressLine2?: string;
+  city?: string;
+  state?: string;
+  pincode?: string;
 }

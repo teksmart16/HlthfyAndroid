@@ -153,10 +153,11 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   itemImage: {
-    width: 60,
-    height: 60,
+    width: 30,
+    height: 30,
     borderRadius: 8,
     backgroundColor: '#E5E7EB',
+    resizeMode: 'contain',
   },
   itemDetails: {
     flex: 1,
@@ -174,7 +175,7 @@ const styles = StyleSheet.create({
     marginBottom: 2,
   },
   itemPrice: {
-    fontSize: 14,
+    fontSize: 7,
     color: '#059669',
     fontWeight: '500',
   },
