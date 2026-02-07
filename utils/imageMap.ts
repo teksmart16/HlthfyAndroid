@@ -2,14 +2,45 @@ import { ImageRequireSource } from 'react-native';
 
 export const getImageSource = (imageName: string): ImageRequireSource => {
   const imageMap: { [key: string]: any } = {
+    // Organic - Groceries
     'GoEarth_Bilona_Ghee__1_Litre.jpg': require('../images/Organic/Groceries/GoEarth_Bilona_Ghee__1_Litre.jpg'),
-    'GoEarth Bilona Ghee (1 Litre).jpg': require('../images/Organic/Groceries/GoEarth_Bilona_Ghee__1_Litre.jpg'),
     'Go Earth Premium Organic Brown Sugar.jpg': require('../images/Organic/Groceries/Go Earth Premium Organic Brown Sugar.jpg'),
     'Healthy Organic Jaggery.jpg': require('../images/Organic/Groceries/Healthy Organic Jaggery.jpg'),
     'Besan-Gram Flour.jpg': require('../images/Organic/Groceries/Besan-Gram Flour.jpg'),
     'Black CTC Tea.jpg': require('../images/Organic/Groceries/Black CTC Tea.jpg'),
     'Amla Candy Sweet.jpg': require('../images/Organic/Groceries/Amla Candy Sweet.jpg'),
     'Go Earth Organic Groundnut Seed.jpg': require('../images/Organic/Groceries/Go Earth Organic Groundnut Seed.jpg'),
+    'Instant-oats.jpg': require('../images/Organic/Groceries/Instant-oats.jpg'),
+    'Jaggery-Cube-Square.jpg': require('../images/Organic/Groceries/Jaggery-Cube-Square.jpg'),
+    'Jaggery-Round-Shape.jpg': require('../images/Organic/Groceries/Jaggery-Round-Shape.jpg'),
+    'Kabuli Chana(White).jpg': require('../images/Organic/Groceries/Kabuli Chana(White).jpg'),
+    'Moong-Daal-Flour.jpg': require('../images/Organic/Groceries/Moong-Daal-Flour.jpg'),
+    'Moong-Dal-Chilka.jpg': require('../images/Organic/Groceries/Moong-Dal-Chilka.jpg'),
+    'Natrual Rolled Oats.jpg': require('../images/Organic/Groceries/Natrual Rolled Oats.jpg'),
+    'Natural Red Poha.jpg': require('../images/Organic/Groceries/Natural Red Poha.jpg'),
+    'Natural Shahad-Multiflora.jpg': require('../images/Organic/Groceries/Natural Shahad-Multiflora.jpg'),
+    'Natural White Poha.jpg': require('../images/Organic/Groceries/Natural White Poha.jpg'),
+    'Natural-Healthy-Salt.jpg': require('../images/Organic/Groceries/Natural-Healthy-Salt.jpg'),
+    'Natural-Soyabeam-Whole.jpg': require('../images/Organic/Groceries/Natural-Soyabeam-Whole.jpg'),
+    'Organic Black Salt.jpg': require('../images/Organic/Groceries/Organic Black Salt.jpg'),
+    'Organic-Amla-Powder.jpg': require('../images/Organic/Groceries/Organic-Amla-Powder.jpg'),
+    'Organic-Brown-Sugar.jpg': require('../images/Organic/Groceries/Organic-Brown-Sugar.jpg'),
+    'Organic-Chia-Seed.jpg': require('../images/Organic/Groceries/Organic-Chia-Seed.jpg'),
+    'Organic-Coriander-Powder.jpg': require('../images/Organic/Groceries/Organic-Coriander-Powder.jpg'),
+    'Organic-Cumin-Seed.jpg': require('../images/Organic/Groceries/Organic-Cumin-Seed.jpg'),
+    'Organic-Ginger-Powder.jpg': require('../images/Organic/Groceries/Organic-Ginger-Powder.jpg'),
+    'Organic-Groundnut-Oil.jpg': require('../images/Organic/Groceries/Organic-Groundnut-Oil.jpg'),
+    'Organic-Mustard-Oil.jpg': require('../images/Organic/Groceries/Organic-Mustard-Oil.jpg'),
+    'Organic-Navshakti-Flour.jpg': require('../images/Organic/Groceries/Organic-Navshakti-Flour.jpg'),
+    'Organic-Pumpkin-Seed.jpg': require('../images/Organic/Groceries/Organic-Pumpkin-Seed.jpg'),
+    'Organic-Sesame-Oil.jpg': require('../images/Organic/Groceries/Organic-Sesame-Oil.jpg'),
+    'Organic-Sunflower-Oil.jpg': require('../images/Organic/Groceries/Organic-Sunflower-Oil.jpg'),
+    'Organic-Wheat-Flour.jpg': require('../images/Organic/Groceries/Organic-Wheat-Flour.jpg'),
+    'Red-Chilli-Powder.jpg': require('../images/Organic/Groceries/Red-Chilli-Powder.jpg'),
+    'Shahad-Honey Ajwain.jpg': require('../images/Organic/Groceries/Shahad-Honey Ajwain.jpg'),
+    'Urad-Whole-Black.jpg': require('../images/Organic/Groceries/Urad-Whole-Black.jpg'),
+
+    // Organic - Toiletries
     'Hyper Nature Neem bathing Bar.jpg': require('../images/Organic/Toiletries/Hyper Nature Neem bathing Bar.jpg'),
     'Aloevera Bar (by Hyper Nature).jpg': require('../images/Organic/Toiletries/Aloevera Bar (by Hyper Nature).jpg'),
     'Hyper Nature Classic Ubtan Soap(100g).jpg': require('../images/Organic/Toiletries/Hyper Nature Classic Ubtan Soap(100g).jpg'),
@@ -21,8 +52,14 @@ export const getImageSource = (imageName: string): ImageRequireSource => {
     'Hyper Nature Fenugreek Anti-Dandruff Shampoo.jpg': require('../images/Organic/Toiletries/Hyper_Nature_Fenugreek_Anti-Dandruff_Shampoo.png'),
     'Hyper Nature Nourishing Herbal Shampoo Bar.jpg': require('../images/Organic/Toiletries/Hyper_Nature_Nourishing_Herbal_Shampoo_Bar.png'),
     'Bridal Beauty Bar.jpg': require('../images/Organic/Toiletries/Bridal Beauty Bar.jpg'),
+    'Hyper Nature Premium Handmade Soap.jpg': require('../images/Organic/Toiletries/Hyper Nature Premium Handmade Soap.jpg'),
+    'Natural Lime Bathing Bar.jpg': require('../images/Organic/Toiletries/Natural Lime Bathing Bar.jpg'),
+    'Orange Peel Bar.png': require('../images/Organic/Toiletries/Orange Peel Bar.png'),
+    'Organic-Coconut-Oil.jpg': require('../images/Organic/Toiletries/Organic-Coconut-Oil.jpg'),
+    'Rose Glycerin Bar.jpg': require('../images/Organic/Toiletries/Rose Glycerin Bar.jpg'),
+    'Spring Bloom handmade Soap.jpg': require('../images/Organic/Toiletries/Spring Bloom handmade Soap.jpg'),
 
-    // No-Preservative images
+    // No-Preservative
     'Mix Millet Fusilli-Front.png': require('../images/No-Preservative/Mix Millet Fusilli.png'),
     'Mix Millet Macaroni.png': require('../images/No-Preservative/Mix Millet Macaroni.png'),
     'Mix Millet Noodles.png': require('../images/No-Preservative/Mix Millet Noodles.png'),
@@ -30,7 +67,7 @@ export const getImageSource = (imageName: string): ImageRequireSource => {
     'Mix Millet Vermicelli.png': require('../images/No-Preservative/Mix Millet Vermicelli.png'),
     'Multi Millet cookies.png': require('../images/No-Preservative/Multi Millet cookies.png'),
     'Ragi-choco cookies.png': require('../images/No-Preservative/Ragi-choco cookies.png'),
-    'Fusilli-back.png': require('../images/No-Preservative/Mix Millet Fusilli.png'),
+    'Jowar namkeen cookies.png': require('../images/No-Preservative/Jowar namkeen cookies.png'),
   };
 
   return imageMap[imageName] || require('../images/Organic/Groceries/GoEarth_Bilona_Ghee__1_Litre.jpg');

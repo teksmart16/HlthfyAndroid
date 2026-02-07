@@ -1,63 +1,62 @@
 id,name,price
-1,GoEarth Bilona Ghee,850
-2,Go Earth Premium Brown Sugar,180
-3,Healthy Organic Jaggery,220
-4,Besan Gram Flour,120
-5,Black CTC Tea,180
-6,Amla Candy Sweet,150
-7,Go Earth Groundnut Seeds,280
-8,Hyper Nature Neem Bar,85
-9,Aloevera Beauty Bar,95
-10,Classic Ubtan Soap,110
-11,Charcoal Detox Bar,125
-12,Premium Bridal Beauty Bar,150
-13,De-Tan Beauty Bar,135
-14,Glow Facial Bar,140
-15,Skin Brightening Bar,130
-16,Fenugreek Anti-Dandruff Shampoo,280
-17,Nourishing Herbal Shampoo Bar,160
-18,Bridal Beauty Bar,145
-19,Mix Millet Fusilli,160
-20,Mix Millet Macaroni,150
-21,Mix Millet Noodles,155
-22,Mix Millet Penne,165
-23,Mix Millet Vermicelli,140
-24,Multi Millet Cookies,120
-25,Ragi Choco Cookies,130
-26,Fusilli Back,150
-27,Instant Oats,200
-28,Jaggery Cubes,180
-29,Jaggery Round Shape,180
-30,Kabuli Chana White,220
-31,Moong Daal Flour,160
-32,Moong Dal Chilka,200
-33,Natural Rolled Oats,220
-34,Natural Red Poha,180
-35,Natural Shahad Multiflora,320
-36,Natural White Poha,170
-37,Natural Healthy Salt,140
-38,Natural Soyabean Whole,240
-39,Organic Black Salt,130
-40,Organic Amla Powder,250
-41,Organic Brown Sugar,190
-42,Organic Chia Seeds,280
-43,Organic Coriander Powder,120
-44,Organic Cumin Seeds,130
-45,Organic Ginger Powder,140
-46,Organic Groundnut Oil,420
-47,Organic Mustard Oil,480
-48,Organic Navshakti Flour,240
-49,Organic Pumpkin Seeds,260
-50,Organic Sesame Oil,520
-51,Organic Sunflower Oil,450
-52,Organic Wheat Flour,220
-53,Red Chilli Powder,110
-54,Shahad Honey Ajwain,350
-55,Urad Whole Black,210
-56,Hyper Nature Premium Handmade Soap,120
-57,Natural Lime Bathing Bar,100
-58,Orange Peel Bar,95
-59,Organic Coconut Oil,280
-60,Rose Glycerin Bar,105
-61,Spring Bloom Handmade Soap,110
-62,Jowar Namkeen Cookies,140
+1,"GoEarth Bilona Ghee",850
+2,"Go Earth Premium Brown Sugar",0
+3,"Healthy Organic Jaggery",0
+4,"Besan Gram Flour",0
+5,"Black CTC Tea",0
+6,"Amla Candy Sweet",0
+7,"Go Earth Groundnut Seeds",0
+8,"Hyper Nature Neem Bar",30
+9,"Aloevera Beauty Bar",55
+10,"Classic Ubtan Soap",139
+11,"Charcoal Detox Bar",65
+12,"Premium Bridal Beauty Bar",180
+13,"De-Tan Beauty Bar",45
+14,"Glow Facial Bar",89
+15,"Skin Brightening Bar",55
+16,"Fenugreek Anti-Dandruff Shampoo",0
+17,"Nourishing Herbal Shampoo Bar",110
+18,"Bridal Beauty Bar",180
+19,"Mix Millet Fusilli",120
+20,"Mix Millet Macaroni",120
+21,"Mix Millet Noodles",130
+22,"Mix Millet Penne",120
+23,"Mix Millet Vermicelli",100
+24,"Multi Millet Cookies",130
+25,"Ragi Choco Cookies",130
+27,"Instant Oats",0
+28,"Jaggery Cubes",0
+29,"Jaggery Round Shape",0
+30,"Kabuli Chana White",0
+31,"Moong Daal Flour",0
+32,"Moong Dal Chilka",0
+33,"Natural Rolled Oats",0
+34,"Natural Red Poha",0
+35,"Natural Shahad Multiflora",0
+36,"Natural White Poha",0
+37,"Natural Healthy Salt",0
+38,"Natural Soyabean",0
+39,"Organic Black Salt",0
+40,"Organic Amla Powder",0
+41,"Organic Brown Sugar",0
+42,"Organic Chia Seeds",0
+43,"Organic Coriander Powder",0
+44,"Organic Cumin Seeds",0
+45,"Organic Ginger Powder",0
+46,"Organic Groundnut Oil",0
+47,"Organic Mustard Oil",0
+48,"Organic Navshakti Flour",0
+49,"Organic Pumpkin Seeds",0
+50,"Organic Sesame Oil",0
+51,"Organic Sunflower Oil",0
+52,"Organic Wheat Flour",0
+53,"Red Chilli Powder",0
+54,"Shahad Honey Ajwain",0
+55,"Urad Whole Black",0
+56,"Hyper Nature Premium Handmade Soap",95
+57,"Natural Lime Bathing Bar",48
+58,"Orange Peel Bar",45
+59,"Organic Coconut Oil",0
+60,"Rose Glycerin Bar",65
+61,"Spring Bloom Handmade Soap",89
+62,"Jowar Namkeen Cookies",130
