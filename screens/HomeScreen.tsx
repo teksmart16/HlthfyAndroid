@@ -307,9 +307,11 @@ export const noPreservativeProducts: Product[] = [
 ];
 
 const categories = ['All', 'Organic', 'No-Preservative'];
+const organicSubcategories = ['Groceries', 'Toiletries'];
 
 const HomeScreen: React.FC<HomeScreenProps> = ({ onAddToCart }) => {
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const [selectedSubcategory, setSelectedSubcategory] = useState<string | null>(null);
 
   const handleAddToCart = (product: Product) => {
     if (!product.inStock) {
@@ -320,11 +322,20 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ onAddToCart }) => {
     Alert.alert('Added to Cart', `${product.name} has been added to your cart!`);
   };
 
-    const allProducts = [...organicProducts, ...noPreservativeProducts];
+  const handleCategorySelect = (category: string) => {
+    setSelectedCategory(category);
+    setSelectedSubcategory(null);
+  };
 
-    const filteredProducts = selectedCategory === 'All'
-      ? allProducts
-      : allProducts.filter(product => product.group === selectedCategory);
+  const allProducts = [...organicProducts, ...noPreservativeProducts];
+
+  const filteredProducts = selectedCategory === 'All'
+    ? allProducts
+    : selectedCategory === 'Organic' && selectedSubcategory
+    ? allProducts.filter(product => product.group === selectedCategory && product.subcategory === selectedSubcategory)
+    : selectedCategory === 'Organic' && !selectedSubcategory
+    ? []
+    : allProducts.filter(product => product.group === selectedCategory);
 
   const renderCategory = ({ item }: { item: string }) => (
     <TouchableOpacity
@@ -332,11 +343,28 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ onAddToCart }) => {
         styles.categoryChip,
         selectedCategory === item && styles.selectedCategory
       ]}
-      onPress={() => setSelectedCategory(item)}
+      onPress={() => handleCategorySelect(item)}
     >
       <Text style={[
         styles.categoryText,
         selectedCategory === item && styles.selectedCategoryText
+      ]}>
+        {item}
+      </Text>
+    </TouchableOpacity>
+  );
+
+  const renderSubcategory = ({ item }: { item: string }) => (
+    <TouchableOpacity
+      style={[
+        styles.categoryChip,
+        selectedSubcategory === item && styles.selectedCategory
+      ]}
+      onPress={() => setSelectedSubcategory(item)}
+    >
+      <Text style={[
+        styles.categoryText,
+        selectedSubcategory === item && styles.selectedCategoryText
       ]}>
         {item}
       </Text>
@@ -432,19 +460,44 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ onAddToCart }) => {
           />
         </View>
 
+        {/* Subcategories for Organic */}
+        {selectedCategory === 'Organic' && (
+          <View style={styles.categoriesSection}>
+            <Text style={styles.sectionTitle}>Select Type</Text>
+            <FlatList
+              data={organicSubcategories}
+              renderItem={renderSubcategory}
+              keyExtractor={(item) => item}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={styles.categoriesList}
+            />
+          </View>
+        )}
+
         {/* Products */}
         <View style={styles.productsSection}>
-          <Text style={styles.sectionTitle}>
-            {selectedCategory === 'All' ? 'All Products' : selectedCategory} ({filteredProducts.length})
-          </Text>
-          <FlatList
-            data={filteredProducts}
-            renderItem={renderProduct}
-            keyExtractor={(item) => item.id}
-            numColumns={2}
-            scrollEnabled={false}
-            contentContainerStyle={styles.productList}
-          />
+          {!(selectedCategory === 'Organic' && !selectedSubcategory) && (
+            <Text style={styles.sectionTitle}>
+              {selectedCategory === 'All' 
+                ? 'All Products' 
+                : selectedCategory === 'Organic' && selectedSubcategory
+                ? `${selectedCategory} - ${selectedSubcategory}`
+                : selectedCategory} ({filteredProducts.length})
+            </Text>
+          )}
+          {selectedCategory === 'Organic' && !selectedSubcategory ? (
+            <Text style={styles.emptyText}>Please select a subcategory</Text>
+          ) : (
+            <FlatList
+              data={filteredProducts}
+              renderItem={renderProduct}
+              keyExtractor={(item) => item.id}
+              numColumns={2}
+              scrollEnabled={false}
+              contentContainerStyle={styles.productList}
+            />
+          )}
         </View>
       </ScrollView>
     </View>
@@ -568,6 +621,12 @@ const styles = StyleSheet.create({
   productsSection: {
     paddingHorizontal: 16,
     paddingBottom: 100,
+  },
+  emptyText: {
+    fontSize: 16,
+    color: '#6B7280',
+    textAlign: 'center',
+    paddingVertical: 32,
   },
   productList: {
     paddingTop: 8,
