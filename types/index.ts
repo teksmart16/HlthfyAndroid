@@ -6,6 +6,8 @@ export interface Product {
   price: number;
   image: string;
   inStock: boolean;
+  group?: string;
+  subcategory?: string;
 }
 
 export interface CartItem extends Product {

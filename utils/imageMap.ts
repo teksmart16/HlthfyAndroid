@@ -1,5 +1,4 @@
 import { ImageRequireSource } from 'react-native';
-import { ImageRequireSource } from 'react-native';
 
 export const getImageSource = (imageName: string): ImageRequireSource => {
   const imageMap: { [key: string]: any } = {
@@ -24,14 +23,14 @@ export const getImageSource = (imageName: string): ImageRequireSource => {
     'Bridal Beauty Bar.jpg': require('../images/Organic/Toiletries/Bridal Beauty Bar.jpg'),
 
     // No-Preservative images
-    'Mix Millet Fusilli-Front.png': require('../images/No-Preservative/Mix Millet Fusilli-Front.png'),
+    'Mix Millet Fusilli-Front.png': require('../images/No-Preservative/Mix Millet Fusilli.png'),
     'Mix Millet Macaroni.png': require('../images/No-Preservative/Mix Millet Macaroni.png'),
     'Mix Millet Noodles.png': require('../images/No-Preservative/Mix Millet Noodles.png'),
     'Mix Millet Penne.png': require('../images/No-Preservative/Mix Millet Penne.png'),
     'Mix Millet Vermicelli.png': require('../images/No-Preservative/Mix Millet Vermicelli.png'),
     'Multi Millet cookies.png': require('../images/No-Preservative/Multi Millet cookies.png'),
     'Ragi-choco cookies.png': require('../images/No-Preservative/Ragi-choco cookies.png'),
-    'Fusilli-back.png': require('../images/No-Preservative/Fusilli-back.png'),
+    'Fusilli-back.png': require('../images/No-Preservative/Mix Millet Fusilli.png'),
   };
 
   return imageMap[imageName] || require('../images/Organic/Groceries/GoEarth_Bilona_Ghee__1_Litre.jpg');
