@@ -21,27 +21,36 @@ const { width } = Dimensions.get('window');
 // Image mappings using actual local images
 const getImageSource = (imageName: string) => {
   const imageMap: { [key: string]: any } = {
-    'GoEarth Bilona Ghee (1 Litre).jpg': require('../images/GoEarth Bilona Ghee (1 Litre).jpg'),
-    'Go Earth Premium Organic Brown Sugar.jpg': require('../images/Go Earth Premium Organic Brown Sugar.jpg'),
-    'Healthy Organic Jaggery.jpg': require('../images/Healthy Organic Jaggery.jpg'),
-    'Besan-Gram Flour.jpg': require('../images/Besan-Gram Flour.jpg'),
-    'Black CTC Tea.jpg': require('../images/Black CTC Tea.jpg'),
-    'Amla Candy Sweet.jpg': require('../images/Amla Candy Sweet.jpg'),
-    'Go Earth Organic Groundnut Seed.jpg': require('../images/Go Earth Organic Groundnut Seed.jpg'),
-    'Hyper Nature Neem bathing Bar.jpg': require('../images/Hyper Nature Neem bathing Bar.jpg'),
-    'Aloevera Bar (by Hyper Nature).jpg': require('../images/Aloevera Bar (by Hyper Nature).jpg'),
-    'Hyper Nature Classic Ubtan Soap(100g).jpg': require('../images/Hyper Nature Classic Ubtan Soap(100g).jpg'),
-    'Hyper Nature Charcoal Bar.jpg': require('../images/Hyper Nature Charcoal Bar.jpg'),
-    'Hyper Nature Premium Bridal Beauty Bar.jpg': require('../images/Hyper Nature Premium Bridal Beauty Bar.jpg'),
-    'De-Tan Bar (by Hyper Nature).jpg': require('../images/De-Tan Bar (by Hyper Nature).jpg'),
-    'Glow Facial Bar.jpg': require('../images/Glow Facial Bar.jpg'),
-    'Hyper Nature Skin Brightening Bar (100g).jpg': require('../images/Hyper Nature Skin Brightening Bar (100g).jpg'),
-    'Hyper Nature Fenugreek Anti-Dandruff Shampoo.jpg': require('../images/Hyper Nature Fenugreek Anti-Dandruff Shampoo.jpg'),
-    'Hyper Nature Nourishing Herbal Shampoo Bar.jpg': require('../images/Hyper Nature Nourishing Herbal Shampoo Bar.jpg'),
-    'Bridal Beauty Bar.jpg': require('../images/Bridal Beauty Bar.jpg'),
+    'GoEarth Bilona Ghee (1 Litre).jpg': require('../images/Organic/GoEarth Bilona Ghee (1 Litre).jpg'),
+    'Go Earth Premium Organic Brown Sugar.jpg': require('../images/Organic/Go Earth Premium Organic Brown Sugar.jpg'),
+    'Healthy Organic Jaggery.jpg': require('../images/Organic/Healthy Organic Jaggery.jpg'),
+    'Besan-Gram Flour.jpg': require('../images/Organic/Besan-Gram Flour.jpg'),
+    'Black CTC Tea.jpg': require('../images/Organic/Black CTC Tea.jpg'),
+    'Amla Candy Sweet.jpg': require('../images/Organic/Amla Candy Sweet.jpg'),
+    'Go Earth Organic Groundnut Seed.jpg': require('../images/Organic/Go Earth Organic Groundnut Seed.jpg'),
+    'Hyper Nature Neem bathing Bar.jpg': require('../images/Organic/Hyper Nature Neem bathing Bar.jpg'),
+    'Aloevera Bar (by Hyper Nature).jpg': require('../images/Organic/Aloevera Bar (by Hyper Nature).jpg'),
+    'Hyper Nature Classic Ubtan Soap(100g).jpg': require('../images/Organic/Hyper Nature Classic Ubtan Soap(100g).jpg'),
+    'Hyper Nature Charcoal Bar.jpg': require('../images/Organic/Hyper Nature Charcoal Bar.jpg'),
+    'Hyper Nature Premium Bridal Beauty Bar.jpg': require('../images/Organic/Hyper Nature Premium Bridal Beauty Bar.jpg'),
+    'De-Tan Bar (by Hyper Nature).jpg': require('../images/Organic/De-Tan Bar (by Hyper Nature).jpg'),
+    'Glow Facial Bar.jpg': require('../images/Organic/Glow Facial Bar.jpg'),
+    'Hyper Nature Skin Brightening Bar (100g).jpg': require('../images/Organic/Hyper Nature Skin Brightening Bar (100g).jpg'),
+    'Hyper Nature Fenugreek Anti-Dandruff Shampoo.jpg': require('../images/Organic/Hyper Nature Fenugreek Anti-Dandruff Shampoo.jpg'),
+    'Hyper Nature Nourishing Herbal Shampoo Bar.jpg': require('../images/Organic/Hyper Nature Nourishing Herbal Shampoo Bar.jpg'),
+    'Bridal Beauty Bar.jpg': require('../images/Organic/Bridal Beauty Bar.jpg'),
+    // No-Preservative images
+    'Mix Millet Fusilli-Front.png': require('../images/No-Preservative/Mix Millet Fusilli-Front.png'),
+    'Mix Millet Macaroni.png': require('../images/No-Preservative/Mix Millet Macaroni.png'),
+    'Mix Millet Noodles.png': require('../images/No-Preservative/Mix Millet Noodles.png'),
+    'Mix Millet Penne.png': require('../images/No-Preservative/Mix Millet Penne.png'),
+    'Mix Millet Vermicelli.png': require('../images/No-Preservative/Mix Millet Vermicelli.png'),
+    'Multi Millet cookies.png': require('../images/No-Preservative/Multi Millet cookies.png'),
+    'Ragi-choco cookies.png': require('../images/No-Preservative/Ragi-choco cookies.png'),
+    'Fusilli-back.png': require('../images/No-Preservative/Fusilli-back.png'),
   };
-  
-  return imageMap[imageName] || require('../images/GoEarth Bilona Ghee (1 Litre).jpg');
+
+  return imageMap[imageName] || require('../images/Organic/GoEarth Bilona Ghee (1 Litre).jpg');
 };
 
 const organicProducts: Product[] = [
@@ -53,6 +62,7 @@ const organicProducts: Product[] = [
     price: 850,
     image: 'GoEarth Bilona Ghee (1 Litre).jpg',
     inStock: true,
+    group: 'Organic',
   },
   {
     id: '2',
@@ -62,6 +72,7 @@ const organicProducts: Product[] = [
     price: 180,
     image: 'Go Earth Premium Organic Brown Sugar.jpg',
     inStock: true,
+    group: 'Organic',
   },
   {
     id: '3',
@@ -71,6 +82,7 @@ const organicProducts: Product[] = [
     price: 220,
     image: 'Healthy Organic Jaggery.jpg',
     inStock: true,
+    group: 'Organic',
   },
   {
     id: '4',
@@ -80,6 +92,7 @@ const organicProducts: Product[] = [
     price: 120,
     image: 'Besan-Gram Flour.jpg',
     inStock: true,
+    group: 'Organic',
   },
   {
     id: '5',
@@ -89,6 +102,7 @@ const organicProducts: Product[] = [
     price: 180,
     image: 'Black CTC Tea.jpg',
     inStock: true,
+    group: 'Organic',
   },
   {
     id: '6',
@@ -98,6 +112,7 @@ const organicProducts: Product[] = [
     price: 150,
     image: 'Amla Candy Sweet.png',
     inStock: true,
+    group: 'Organic',
   },
   {
     id: '7',
@@ -107,6 +122,7 @@ const organicProducts: Product[] = [
     price: 280,
     image: 'Go Earth Organic Groundnut Seed.jpg',
     inStock: true,
+    group: 'Organic',
   },
   {
     id: '8',
@@ -116,6 +132,7 @@ const organicProducts: Product[] = [
     price: 85,
     image: 'Hyper Nature Neem bathing Bar.jpg',
     inStock: true,
+    group: 'Organic',
   },
   {
     id: '9',
@@ -125,6 +142,7 @@ const organicProducts: Product[] = [
     price: 95,
     image: 'Aloevera Bar (by Hyper Nature).png',
     inStock: true,
+    group: 'Organic',
   },
   {
     id: '10',
@@ -134,6 +152,7 @@ const organicProducts: Product[] = [
     price: 110,
     image: 'Hyper Nature Classic Ubtan Soap(100g).jpg',
     inStock: true,
+    group: 'Organic',
   },
   {
     id: '11',
@@ -143,6 +162,7 @@ const organicProducts: Product[] = [
     price: 125,
     image: 'Hyper Nature Charcoal Bar.jpg',
     inStock: true,
+    group: 'Organic',
   },
   {
     id: '12',
@@ -152,6 +172,7 @@ const organicProducts: Product[] = [
     price: 150,
     image: 'Hyper Nature Premium Bridal Beauty Bar.jpg',
     inStock: true,
+    group: 'Organic',
   },
   {
     id: '13',
@@ -161,6 +182,7 @@ const organicProducts: Product[] = [
     price: 135,
     image: 'De-Tan Bar (by Hyper Nature).jpg',
     inStock: true,
+    group: 'Organic',
   },
   {
     id: '14',
@@ -170,6 +192,7 @@ const organicProducts: Product[] = [
     price: 140,
     image: 'Glow Facial Bar.jpg',
     inStock: true,
+    group: 'Organic',
   },
   {
     id: '15',
@@ -179,6 +202,7 @@ const organicProducts: Product[] = [
     price: 130,
     image: 'Hyper Nature Skin Brightening Bar (100g).jpg',
     inStock: true,
+    group: 'Organic',
   },
   {
     id: '16',
@@ -188,6 +212,7 @@ const organicProducts: Product[] = [
     price: 280,
     image: 'Hyper Nature Fenugreek Anti-Dandruff Shampoo.jpg',
     inStock: true,
+    group: 'Organic',
   },
   {
     id: '17',
@@ -197,6 +222,7 @@ const organicProducts: Product[] = [
     price: 160,
     image: 'Hyper Nature Nourishing Herbal Shampoo Bar.jpg',
     inStock: true,
+    group: 'Organic',
   },
   {
     id: '18',
@@ -206,10 +232,94 @@ const organicProducts: Product[] = [
     price: 145,
     image: 'Bridal Beauty Bar.jpg',
     inStock: true,
+    group: 'Organic',
   },
 ];
 
-const categories = ['All', 'Organic Dairy', 'Natural Sweeteners', 'Organic Flours', 'Organic Beverages', 'Healthy Snacks', 'Organic Seeds', 'Natural Skincare', 'Hair Care'];
+const noPreservativeProducts: Product[] = [
+  {
+    id: '19',
+    name: 'Mix Millet Fusilli',
+    category: 'Millet Pasta',
+    weight: '250g',
+    price: 160,
+    image: 'Mix Millet Fusilli-Front.png',
+    inStock: true,
+    group: 'No-Preservative',
+  },
+  {
+    id: '20',
+    name: 'Mix Millet Macaroni',
+    category: 'Millet Pasta',
+    weight: '250g',
+    price: 150,
+    image: 'Mix Millet Macaroni.png',
+    inStock: true,
+    group: 'No-Preservative',
+  },
+  {
+    id: '21',
+    name: 'Mix Millet Noodles',
+    category: 'Millet Pasta',
+    weight: '250g',
+    price: 155,
+    image: 'Mix Millet Noodles.png',
+    inStock: true,
+    group: 'No-Preservative',
+  },
+  {
+    id: '22',
+    name: 'Mix Millet Penne',
+    category: 'Millet Pasta',
+    weight: '250g',
+    price: 165,
+    image: 'Mix Millet Penne.png',
+    inStock: true,
+    group: 'No-Preservative',
+  },
+  {
+    id: '23',
+    name: 'Mix Millet Vermicelli',
+    category: 'Millet Pasta',
+    weight: '200g',
+    price: 140,
+    image: 'Mix Millet Vermicelli.png',
+    inStock: true,
+    group: 'No-Preservative',
+  },
+  {
+    id: '24',
+    name: 'Multi Millet Cookies',
+    category: 'Snacks',
+    weight: '200g',
+    price: 120,
+    image: 'Multi Millet cookies.png',
+    inStock: true,
+    group: 'No-Preservative',
+  },
+  {
+    id: '25',
+    name: 'Ragi Choco Cookies',
+    category: 'Snacks',
+    weight: '200g',
+    price: 130,
+    image: 'Ragi-choco cookies.png',
+    inStock: true,
+    group: 'No-Preservative',
+  },
+  {
+    id: '26',
+    name: 'Fusilli Back',
+    category: 'Millet Pasta',
+    weight: '250g',
+    price: 150,
+    image: 'Fusilli-back.png',
+    inStock: true,
+    group: 'No-Preservative',
+  },
+];
+
+const categories = ['All', 'Organic', 'No-Preservative'];
 
 const HomeScreen: React.FC<HomeScreenProps> = ({ onAddToCart }) => {
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -223,9 +333,11 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ onAddToCart }) => {
     Alert.alert('Added to Cart', `${product.name} has been added to your cart!`);
   };
 
-  const filteredProducts = selectedCategory === 'All' 
-    ? organicProducts 
-    : organicProducts.filter(product => product.category === selectedCategory);
+    const allProducts = [...organicProducts, ...noPreservativeProducts];
+
+    const filteredProducts = selectedCategory === 'All'
+      ? allProducts
+      : allProducts.filter(product => product.group === selectedCategory);
 
   const renderCategory = ({ item }: { item: string }) => (
     <TouchableOpacity
