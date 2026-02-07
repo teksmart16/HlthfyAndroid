@@ -72,6 +72,12 @@ const AddressScreen: React.FC<AddressScreenProps> = ({
       return;
     }
 
+    // Check phone number format specifically
+    if (!/^\d{10}$/.test(formData.phone.trim())) {
+      Alert.alert('Incorrect Phone number');
+      return;
+    }
+
     // validate fields
     const isValid = validateForm();
     if (!isValid) {
@@ -347,6 +353,7 @@ const AddressScreen: React.FC<AddressScreenProps> = ({
               }}
             />
             
+            <Text style={styles.inputLabel}>Phone Number *</Text>
             <TextInput
               style={styles.input}
               placeholder="Phone Number *"
@@ -358,6 +365,7 @@ const AddressScreen: React.FC<AddressScreenProps> = ({
               }}
               keyboardType="phone-pad"
             />
+            <Text style={styles.helperText}>(10 digits)</Text>
             
             <TextInput
               style={styles.input}
