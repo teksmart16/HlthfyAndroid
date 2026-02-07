@@ -26,6 +26,7 @@ const AddressScreen: React.FC<AddressScreenProps> = ({
   const [addresses, setAddresses] = useState<Address[]>([]);
   const [showForm, setShowForm] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState<string>('');
+  const [editingId, setEditingId] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -36,6 +37,7 @@ const AddressScreen: React.FC<AddressScreenProps> = ({
     pincode: '',
     isDefault: false,
   });
+  const [pincodeLoading, setPincodeLoading] = useState(false);
 
   useEffect(() => {
     loadAddresses();
@@ -62,32 +64,61 @@ const AddressScreen: React.FC<AddressScreenProps> = ({
   };
 
   const saveAddress = async () => {
-    if (!formData.name.trim() || !formData.phone.trim() || 
-        !formData.addressLine1.trim() || !formData.city.trim() || 
+    // basic required fields
+    if (!formData.name.trim() || !formData.phone.trim() ||
+        !formData.addressLine1.trim() || !formData.city.trim() ||
         !formData.state.trim() || !formData.pincode.trim()) {
-      Alert.alert('Error', 'Please fill in all required fields');
+      Alert.alert('Incorrect data');
       return;
     }
 
-    const newAddress: Address = {
-      id: Date.now().toString(),
-      name: formData.name,
-      phone: formData.phone,
-      addressLine1: formData.addressLine1,
-      addressLine2: formData.addressLine2,
-      city: formData.city,
-      state: formData.state,
-      pincode: formData.pincode,
-      isDefault: formData.isDefault,
-    };
+    // validate fields
+    const isValid = validateForm();
+    if (!isValid) {
+      Alert.alert('Incorrect data');
+      return;
+    }
 
-    let updatedAddresses = [...addresses, newAddress];
+    let updatedAddresses: Address[];
+
+    if (editingId) {
+      // Update existing address
+      updatedAddresses = addresses.map(addr =>
+        addr.id === editingId
+          ? {
+              ...addr,
+              name: formData.name,
+              phone: formData.phone,
+              addressLine1: formData.addressLine1,
+              addressLine2: formData.addressLine2,
+              city: formData.city,
+              state: formData.state,
+              pincode: formData.pincode,
+              isDefault: formData.isDefault,
+            }
+          : addr
+      );
+    } else {
+      // Create new address
+      const newAddress: Address = {
+        id: Date.now().toString(),
+        name: formData.name,
+        phone: formData.phone,
+        addressLine1: formData.addressLine1,
+        addressLine2: formData.addressLine2,
+        city: formData.city,
+        state: formData.state,
+        pincode: formData.pincode,
+        isDefault: formData.isDefault,
+      };
+      updatedAddresses = [...addresses, newAddress];
+    }
 
     // If this is set as default, remove default from other addresses
     if (formData.isDefault) {
       updatedAddresses = updatedAddresses.map(addr => ({
         ...addr,
-        isDefault: addr.id === newAddress.id,
+        isDefault: addr.id === (editingId || updatedAddresses[updatedAddresses.length - 1].id),
       }));
     }
 
@@ -95,7 +126,8 @@ const AddressScreen: React.FC<AddressScreenProps> = ({
       await AsyncStorage.setItem('userAddresses', JSON.stringify(updatedAddresses));
       setAddresses(updatedAddresses);
       setShowForm(false);
-      setSelectedAddress(newAddress.id);
+      setEditingId(null);
+      setSelectedAddress(editingId || updatedAddresses[updatedAddresses.length - 1].id);
       
       // Reset form
       setFormData({
@@ -109,9 +141,68 @@ const AddressScreen: React.FC<AddressScreenProps> = ({
         isDefault: false,
       });
       
-      Alert.alert('Success', 'Address saved successfully!');
+      Alert.alert('Success', editingId ? 'Address updated successfully!' : 'Address saved successfully!');
     } catch (error) {
       Alert.alert('Error', 'Failed to save address');
+    }
+  };
+
+  const indianStates = [
+    'Andhra Pradesh','Arunachal Pradesh','Assam','Bihar','Chhattisgarh','Goa','Gujarat','Haryana','Himachal Pradesh','Jharkhand','Karnataka','Kerala','Madhya Pradesh','Maharashtra','Manipur','Meghalaya','Mizoram','Nagaland','Odisha','Punjab','Rajasthan','Sikkim','Tamil Nadu','Telangana','Tripura','Uttar Pradesh','Uttarakhand','West Bengal','Andaman and Nicobar Islands','Chandigarh','Dadra and Nagar Haveli and Daman and Diu','Delhi','Jammu and Kashmir','Ladakh','Lakshadweep','Puducherry'
+  ];
+
+  // A small list of common Indian cities for validation (not exhaustive)
+  const indianCities = [
+    'Mumbai','Delhi','Bengaluru','Kolkata','Chennai','Hyderabad','Pune','Ahmedabad','Jaipur','Lucknow','Kanpur','Surat','Nagpur','Visakhapatnam','Bhopal','Patna','Ludhiana','Agra','Nashik','Faridabad','Meerut','Rajkot','Kalyan','Vasai','Vijayawada','Madurai','Nanded','Guwahati','Amritsar','Allahabad','Rourkela','Howrah','Jabalpur','Coimbatore','Jodhpur','Gwalior','Vijayanagaram','Dehradun','Ranchi'
+  ];
+
+  const validateForm = (): boolean => {
+    // Name: only letters and spaces
+    const nameValid = /^[A-Za-z\s]+$/.test(formData.name.trim());
+
+    // Phone: exactly 10 digits
+    const phoneValid = /^\d{10}$/.test(formData.phone.trim());
+
+    // Pincode: 6 digits, not starting with 0
+    const pincodeValid = /^[1-9][0-9]{5}$/.test(formData.pincode.trim());
+
+    // State: must match known Indian state/UT (case-insensitive)
+    const stateValid = indianStates.some(s => s.toLowerCase() === formData.state.trim().toLowerCase());
+
+    // City: match against list (case-insensitive) OR allow alphabetic city name
+    const cityTrim = formData.city.trim();
+    const cityInList = indianCities.some(c => c.toLowerCase() === cityTrim.toLowerCase());
+    const cityAlpha = /^[A-Za-z\s]+$/.test(cityTrim);
+    const cityValid = cityInList || cityAlpha;
+
+    return nameValid && phoneValid && pincodeValid && stateValid && cityValid;
+  };
+
+  const fetchCityStateFromPincode = async (pincode: string) => {
+    if (!pincode || pincode.length !== 6) {
+      return;
+    }
+    
+    setPincodeLoading(true);
+    try {
+      const response = await fetch(`https://api.postalpincode.in/pincode/${pincode}`);
+      const data = await response.json();
+      
+      if (data && data.length > 0 && data[0].Status === 'Success') {
+        const result = data[0].PostOffice[0];
+        const city = result.District || '';
+        const state = result.State || '';
+        
+        setFormData(prev => ({
+          ...prev,
+          city: city,
+          state: state,
+        }));
+      }
+    } catch (error) {
+      console.log('Error fetching city/state from pincode:', error);
+    } finally {
+      setPincodeLoading(false);
     }
   };
 
@@ -124,6 +215,49 @@ const AddressScreen: React.FC<AddressScreenProps> = ({
     if (onAddressSelected) {
       onAddressSelected(address);
     }
+  };
+
+  const deleteAddress = (addressId: string) => {
+    Alert.alert(
+      'Delete Address',
+      'Are you sure you want to delete this address?',
+      [
+        { text: 'Cancel', onPress: () => {}, style: 'cancel' },
+        {
+          text: 'Delete',
+          onPress: async () => {
+            const updatedAddresses = addresses.filter(addr => addr.id !== addressId);
+            
+            try {
+              await AsyncStorage.setItem('userAddresses', JSON.stringify(updatedAddresses));
+              setAddresses(updatedAddresses);
+              if (selectedAddress === addressId) {
+                setSelectedAddress(updatedAddresses.length > 0 ? updatedAddresses[0].id : '');
+              }
+              Alert.alert('Success', 'Address deleted successfully');
+            } catch (error) {
+              Alert.alert('Error', 'Failed to delete address');
+            }
+          },
+          style: 'destructive',
+        },
+      ]
+    );
+  };
+
+  const editAddress = (address: Address) => {
+    setEditingId(address.id);
+    setFormData({
+      name: address.name,
+      phone: address.phone,
+      addressLine1: address.addressLine1,
+      addressLine2: address.addressLine2,
+      city: address.city,
+      state: address.state,
+      pincode: address.pincode,
+      isDefault: address.isDefault,
+    });
+    setShowForm(true);
   };
 
   const renderAddressCard = (address: Address) => (
@@ -150,6 +284,20 @@ const AddressScreen: React.FC<AddressScreenProps> = ({
       <Text style={styles.addressText}>
         {address.city}, {address.state} - {address.pincode}
       </Text>
+      <View style={styles.addressActions}>
+        <TouchableOpacity
+          style={styles.editButton}
+          onPress={() => editAddress(address)}
+        >
+          <Text style={styles.editButtonText}>Edit</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.deleteButton}
+          onPress={() => deleteAddress(address.id)}
+        >
+          <Text style={styles.deleteButtonText}>Delete</Text>
+        </TouchableOpacity>
+      </View>
       <View style={styles.radioContainer}>
         <View style={[
           styles.radio,
@@ -192,14 +340,22 @@ const AddressScreen: React.FC<AddressScreenProps> = ({
               style={styles.input}
               placeholder="Full Name *"
               value={formData.name}
-              onChangeText={(text) => setFormData(prev => ({ ...prev, name: text }))}
+              onChangeText={(text) => {
+                // strip integers and special characters as user types
+                const clean = text.replace(/[^A-Za-z\s]/g, '');
+                setFormData(prev => ({ ...prev, name: clean }));
+              }}
             />
             
             <TextInput
               style={styles.input}
               placeholder="Phone Number *"
               value={formData.phone}
-              onChangeText={(text) => setFormData(prev => ({ ...prev, phone: text }))}
+              onChangeText={(text) => {
+                // allow only digits, limit to 10
+                const digits = text.replace(/[^0-9]/g, '');
+                setFormData(prev => ({ ...prev, phone: digits.slice(0, 10) }));
+              }}
               keyboardType="phone-pad"
             />
             
@@ -223,13 +379,21 @@ const AddressScreen: React.FC<AddressScreenProps> = ({
                 style={[styles.input, styles.halfInput]}
                 placeholder="City *"
                 value={formData.city}
-                onChangeText={(text) => setFormData(prev => ({ ...prev, city: text }))}
+                editable={!pincodeLoading}
+                onChangeText={(text) => {
+                  const clean = text.replace(/[^A-Za-z\s]/g, '');
+                  setFormData(prev => ({ ...prev, city: clean }));
+                }}
               />
               <TextInput
                 style={[styles.input, styles.halfInput]}
                 placeholder="State *"
                 value={formData.state}
-                onChangeText={(text) => setFormData(prev => ({ ...prev, state: text }))}
+                editable={!pincodeLoading}
+                onChangeText={(text) => {
+                  const clean = text.replace(/[^A-Za-z\s]/g, '');
+                  setFormData(prev => ({ ...prev, state: clean }));
+                }}
               />
             </View>
             
@@ -237,7 +401,17 @@ const AddressScreen: React.FC<AddressScreenProps> = ({
               style={styles.input}
               placeholder="Pincode *"
               value={formData.pincode}
-              onChangeText={(text) => setFormData(prev => ({ ...prev, pincode: text }))}
+              onChangeText={(text) => {
+                // only digits, limit to 6
+                const digits = text.replace(/[^0-9]/g, '');
+                setFormData(prev => ({ ...prev, pincode: digits.slice(0, 6) }));
+              }}
+              onBlur={() => {
+                // Fetch city/state when user leaves pincode field
+                if (formData.pincode.length === 6) {
+                  fetchCityStateFromPincode(formData.pincode);
+                }
+              }}
               keyboardType="numeric"
             />
             
@@ -254,7 +428,20 @@ const AddressScreen: React.FC<AddressScreenProps> = ({
             <View style={styles.formButtons}>
               <TouchableOpacity
                 style={styles.cancelButton}
-                onPress={() => setShowForm(false)}
+                onPress={() => {
+                  setShowForm(false);
+                  setEditingId(null);
+                  setFormData({
+                    name: '',
+                    phone: '',
+                    addressLine1: '',
+                    addressLine2: '',
+                    city: '',
+                    state: '',
+                    pincode: '',
+                    isDefault: false,
+                  });
+                }}
               >
                 <Text style={styles.cancelButtonText}>Cancel</Text>
               </TouchableOpacity>
@@ -262,7 +449,7 @@ const AddressScreen: React.FC<AddressScreenProps> = ({
                 style={styles.saveButton}
                 onPress={saveAddress}
               >
-                <Text style={styles.saveButtonText}>Save Address</Text>
+                <Text style={styles.saveButtonText}>{editingId ? 'Update' : 'Save'} Address</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -356,6 +543,35 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#374151',
     lineHeight: 22,
+  },
+  addressActions: {
+    flexDirection: 'row',
+    marginTop: 12,
+    gap: 8,
+  },
+  editButton: {
+    flex: 1,
+    backgroundColor: '#059669',
+    borderRadius: 6,
+    paddingVertical: 8,
+    alignItems: 'center',
+  },
+  editButtonText: {
+    color: 'white',
+    fontSize: 14,
+    fontWeight: '600',
+  },
+  deleteButton: {
+    flex: 1,
+    backgroundColor: '#EF4444',
+    borderRadius: 6,
+    paddingVertical: 8,
+    alignItems: 'center',
+  },
+  deleteButtonText: {
+    color: 'white',
+    fontSize: 14,
+    fontWeight: '600',
   },
   radioContainer: {
     position: 'absolute',
