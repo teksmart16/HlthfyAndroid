@@ -397,7 +397,7 @@ const AddressScreen: React.FC<AddressScreenProps> = ({
               />
             </View>
             
-            <Text style={styles.inputLabel}>Pincode *</Text>
+            <Text style={styles.inputLabel}>Pincode * (autofill City and State)</Text>
             <TextInput
               style={styles.input}
               placeholder="Pincode *"
