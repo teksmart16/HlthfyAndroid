@@ -397,6 +397,7 @@ const AddressScreen: React.FC<AddressScreenProps> = ({
               />
             </View>
             
+            <Text style={styles.inputLabel}>Pincode *</Text>
             <TextInput
               style={styles.input}
               placeholder="Pincode *"
@@ -414,6 +415,7 @@ const AddressScreen: React.FC<AddressScreenProps> = ({
               }}
               keyboardType="numeric"
             />
+            <Text style={styles.helperText}>(autofill City and State)</Text>
             
             <View style={styles.switchContainer}>
               <Text style={styles.switchLabel}>Set as default address</Text>
@@ -625,6 +627,18 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 16,
     backgroundColor: '#FFFFFF',
+  },
+  inputLabel: {
+    fontSize: 14,
+    color: '#111827',
+    fontWeight: '500',
+    marginBottom: 4,
+  },
+  helperText: {
+    fontSize: 12,
+    color: '#9CA3AF',
+    marginBottom: 16,
+    marginTop: -12,
   },
   row: {
     flexDirection: 'row',
