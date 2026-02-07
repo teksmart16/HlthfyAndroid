@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, FlatList, Image, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { View, Text, FlatList, Image, Pressable, StyleSheet, Alert } from 'react-native';
 import { Product } from '../types';
 import { organicProducts } from './HomeScreen';
 import { getImageSource } from '../utils/imageMap';
@@ -23,9 +23,9 @@ const GroceriesScreen: React.FC<Props> = ({ onAddToCart }) => {
       <View style={styles.info}>
         <Text style={styles.name}>{item.name}</Text>
         <Text style={styles.price}>₹{item.price}</Text>
-        <TouchableOpacity style={styles.button} onPress={() => handleAddToCart(item)}>
+        <Pressable style={({ pressed }) => [styles.button, pressed && styles.buttonPressed]} onPress={() => handleAddToCart(item)}>
           <Text style={styles.buttonText}>Add</Text>
-        </TouchableOpacity>
+        </Pressable>
       </View>
     </View>
   );
@@ -41,12 +41,32 @@ const GroceriesScreen: React.FC<Props> = ({ onAddToCart }) => {
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 12, backgroundColor: '#fff' },
   title: { fontSize: 20, fontWeight: 'bold', marginBottom: 12 },
-  card: { flexDirection: 'row', marginBottom: 12, borderRadius: 8, overflow: 'hidden', borderWidth: 1, borderColor: '#eee' },
+  card: { flexDirection: 'row', marginBottom: 12, borderRadius: 8, overflow: 'visible', borderWidth: 1, borderColor: '#eee' },
   image: { width: 100, height: 100, resizeMode: 'cover' },
   info: { flex: 1, padding: 8, justifyContent: 'center' },
   name: { fontSize: 16, fontWeight: '600' },
   price: { marginTop: 6, fontSize: 14, color: '#333' },
-  button: { marginTop: 8, backgroundColor: '#059669', paddingVertical: 8, paddingHorizontal: 12, borderRadius: 6, alignSelf: 'flex-start' },
+  button: { 
+    marginTop: 8, 
+    backgroundColor: '#059669', 
+    paddingVertical: 8, 
+    paddingHorizontal: 12, 
+    borderRadius: 6, 
+    alignSelf: 'flex-start',
+    // 3D / raised look
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 6,
+    zIndex: 10,
+  },
+  buttonPressed: {
+    transform: [{ scale: 0.97 }],
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.18,
+    elevation: 4,
+  },
   buttonText: { color: 'white', fontWeight: '600' },
 });
 

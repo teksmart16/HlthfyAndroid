@@ -6,6 +6,7 @@ import {
   FlatList,
   Image,
   TouchableOpacity,
+  Pressable,
   Alert,
   ScrollView,
   Dimensions,
@@ -743,7 +744,8 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ onAddToCart }) => {
     <TouchableOpacity
       style={[
         styles.categoryChip,
-        selectedSubcategory === item && styles.selectedCategory
+         styles.subcategoryChip,
+         selectedSubcategory === item && styles.selectedSubcategory
       ]}
       onPress={() => setSelectedSubcategory(item)}
     >
@@ -765,10 +767,11 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ onAddToCart }) => {
         <Text style={styles.productWeight}>{item.weight}</Text>
         <View style={styles.productFooter}>
           <Text style={styles.productPrice}>₹{item.price}</Text>
-          <TouchableOpacity
-            style={[
+          <Pressable
+            style={({ pressed }) => [
               styles.addButton,
-              !item.inStock && styles.disabledButton
+              !item.inStock && styles.disabledButton,
+              pressed && item.inStock && styles.addButtonPressed,
             ]}
             onPress={() => handleAddToCart(item)}
             disabled={!item.inStock}
@@ -779,7 +782,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ onAddToCart }) => {
             ]}>
               {item.inStock ? 'Add' : 'Out of Stock'}
             </Text>
-          </TouchableOpacity>
+          </Pressable>
         </View>
       </View>
     </View>
@@ -990,10 +993,28 @@ const styles = StyleSheet.create({
     marginRight: 8,
     borderWidth: 1,
     borderColor: '#E5E7EB',
+     shadowColor: '#000',
+     shadowOffset: { width: 2, height: 4 },
+     shadowOpacity: 0.15,
+     shadowRadius: 3,
+     elevation: 5,
   },
   selectedCategory: {
     backgroundColor: '#059669',
     borderColor: '#059669',
+     shadowColor: '#000',
+     shadowOffset: { width: 1, height: 2 },
+     shadowOpacity: 0.2,
+     shadowRadius: 3,
+     elevation: 8,
+    },
+    subcategoryChip: {
+     backgroundColor: '#D1FAE5',
+     borderColor: '#A7F3D0',
+    },
+    selectedSubcategory: {
+     backgroundColor: '#10B981',
+     borderColor: '#10B981',
   },
   categoryText: {
     fontSize: 14,
@@ -1021,7 +1042,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 12,
     margin: 8,
-    overflow: 'hidden',
+    overflow: 'visible',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.08,
@@ -1069,6 +1090,19 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 8,
     borderRadius: 8,
+    // 3D / raised look
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 6,
+    zIndex: 10,
+  },
+  addButtonPressed: {
+    transform: [{ scale: 0.97 }],
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.18,
+    elevation: 4,
   },
   disabledButton: {
     backgroundColor: '#E5E7EB',

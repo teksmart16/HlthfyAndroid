@@ -3,7 +3,7 @@ import { ImageRequireSource } from 'react-native';
 export const getImageSource = (imageName: string): ImageRequireSource => {
   const imageMap: { [key: string]: any } = {
     // Organic - Groceries
-    'GoEarth_Bilona_Ghee__1_Litre.jpg': require('../images/Organic/Groceries/GoEarth_Bilona_Ghee__1_Litre.png'),
+    'GoEarth_Bilona_Ghee__1_Litre.jpg': require('../images/Organic/Groceries/GoEarth_Bilona_Ghee__1_Litre.jpg'),
     'Go Earth Premium Organic Brown Sugar.jpg': require('../images/Organic/Groceries/Go Earth Premium Organic Brown Sugar.jpg'),
     'Healthy Organic Jaggery.jpg': require('../images/Organic/Groceries/Healthy Organic Jaggery.jpg'),
     'Besan-Gram Flour.jpg': require('../images/Organic/Groceries/Besan-Gram Flour.jpg'),
@@ -70,5 +70,5 @@ export const getImageSource = (imageName: string): ImageRequireSource => {
     'Jowar namkeen cookies.png': require('../images/No-Preservative/Jowar namkeen cookies.png'),
   };
 
-  return imageMap[imageName] || require('../images/Organic/Groceries/GoEarth_Bilona_Ghee__1_Litre.png');
+  return imageMap[imageName] || require('../images/Organic/Groceries/GoEarth_Bilona_Ghee__1_Litre.jpg');
 };
