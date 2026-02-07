@@ -166,9 +166,6 @@ const AddressScreen: React.FC<AddressScreenProps> = ({
     // Name: only letters and spaces
     const nameValid = /^[A-Za-z\s]+$/.test(formData.name.trim());
 
-    // Phone: exactly 10 digits
-    const phoneValid = /^\d{10}$/.test(formData.phone.trim());
-
     // Pincode: 6 digits, not starting with 0
     const pincodeValid = /^[1-9][0-9]{5}$/.test(formData.pincode.trim());
 
@@ -181,7 +178,8 @@ const AddressScreen: React.FC<AddressScreenProps> = ({
     const cityAlpha = /^[A-Za-z\s]+$/.test(cityTrim);
     const cityValid = cityInList || cityAlpha;
 
-    return nameValid && phoneValid && pincodeValid && stateValid && cityValid;
+    // Note: Phone validation is done separately in saveAddress
+    return nameValid && pincodeValid && stateValid && cityValid;
   };
 
   const fetchCityStateFromPincode = async (pincode: string) => {
